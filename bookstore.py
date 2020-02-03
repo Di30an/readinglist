@@ -19,6 +19,9 @@ class Book:
 
 
     def save(self):
+        """ Takes a book object and uses the Bookstore class methods to either update or add the book
+        The if statement evualted true if the book has an id and updates rather than add a duplicate."""
+        
         if self.id:
             self.bookstore._update_book(self)
         else:
@@ -97,7 +100,6 @@ class BookStore:
             :param book the Book to add """
             
             insert_sql = 'INSERT INTO books (title, author, read) VALUES (?, ?, ?)'
-
             try: 
                 with sqlite3.connect(db) as con:
                     res = con.execute(insert_sql, (book.title, book.author, book.read) )
@@ -184,11 +186,26 @@ class BookStore:
             """
          
             get_book_by_id_sql = 'SELECT rowid, * FROM books WHERE rowid = ?'
+<<<<<<< HEAD
             try:
                 con = sqlite3.connect(db) 
                 con.row_factory = sqlite3.Row  # This row_factory allows access to data by row name 
                 rows = con.execute(get_book_by_id_sql, (id,) )
                 book_data = rows.fetchone()  # Get first result 
+=======
+
+            con = sqlite3.connect(db) 
+            con.row_factory = sqlite3.Row  # This row_factory allows access to data by row name 
+            rows = con.execute(get_book_by_id_sql, (id,) )
+            book_data = rows.fetchone()  # Get first result 
+            
+            if book_data:
+                book = Book(book_data['title'], book_data['author'], book_data['read'], book_data['rowid'])
+            else: # Else is triggered if book_data is none.
+                return book_data
+                    
+            con.close()            
+>>>>>>> master
             
                 if book_data:
                     book = Book(book_data['title'], book_data['author'], book_data['read'], book_data['rowid'])
@@ -302,3 +319,5 @@ class BookStore:
 class BookError(Exception):
     """ For BookStore errors. """
     pass
+    
+    

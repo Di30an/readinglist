@@ -41,7 +41,13 @@ def delete_book():
 
 def add_book():
     new_book = ui.get_book_info()
-    new_book.save()
+    try:
+        new_book.save()
+    except:  
+        '''
+        The catch is triggered if the user enters book and author information that is already in the database.
+        '''
+        print('\nYou have already entered this book and author.\n')
     
 
 def show_read_books():
@@ -69,10 +75,14 @@ def change_read():
 
     book_id = ui.get_book_id()
     book = store.get_book_by_id(book_id)  
-    new_read = ui.get_read_value()     
-    book.read = new_read 
-    book.save()
-    
+
+    #If the book value is none the error message is printed
+    if book == None:  
+        print('\nError: The book id is not in the database\n')
+    else:
+        new_read = ui.get_read_value()     
+        book.read = new_read 
+        book.save()
 
 def quit_program():
     ui.message('Thanks and bye!')

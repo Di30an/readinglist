@@ -8,6 +8,10 @@ def display_menu_get_choice(menu):
     while True:
         print(menu)
         choice = input('Enter choice? ')
+
+        #Added .upper() to prevent case sensitivity.
+        #The user now can use either type Q or q to exit without issues.
+        choice = choice.upper()
         if menu.is_valid(choice):
             return choice
         else:
@@ -25,13 +29,13 @@ def show_books(books):
      :param books: the book list """
 
     # TODO print a blank line before and after the book list or no books message
-
+    print('\n') #prints a blank line before the list of books and message
     if books:
         for book in books:
             print(book)
+        print('\n') #prints a blank line after the list of books
     else:
-        print('No books to display')
-
+        print('No books to display\n') #added a new line escape sequence at the end of the message
 
 def get_book_info():
     """ Create a new Book from title and author provided by user
