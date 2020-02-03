@@ -33,8 +33,11 @@ def create_menu():
 
 def delete_book():
     new_delete = ui.get_book_id()
-    new_delete = store.get_book_by_id(new_delete)
-    new_delete.delete()
+    book = store.get_book_by_id(new_delete)
+    if not book:
+        ui.message('Book not in lib')
+    else: 
+        book.delete()
 
 
 

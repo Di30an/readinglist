@@ -141,8 +141,6 @@ class BookStore:
                 with sqlite3.connect(db) as con:
                     deleted = con.execute(delete_sql, (book.id, ) )
                     deleted_count = deleted.rowcount  # rowcount = how many rows affected by the query
-                if not book.id:
-                    raise BookError('Book does not have ID')
             except:         
                 if not book.id:
                     raise BookError('Book does not have ID')  
@@ -201,6 +199,7 @@ class BookStore:
             finally:            
                 con.close()            
      
+
 
 
         def book_search(self, term):
