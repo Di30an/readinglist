@@ -31,9 +31,6 @@ class Book:
     def delete(self):
         self.bookstore._delete_book(self)
 
-    def print_change(self):
-        read_status = 'have' if self.read else 'have not'
-        return f' You {read_status} read this book.Title: {self.title}, Author: {self.author}. '
 
     def __str__(self):
         read_status = 'have' if self.read else 'have not'
